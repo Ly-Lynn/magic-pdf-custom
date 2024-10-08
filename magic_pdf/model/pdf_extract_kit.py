@@ -227,7 +227,7 @@ class CustomPEKModel:
             # Process each area that requires OCR processing
             index=0
             for res in ocr_res_list:
-                print("ocr_res ", res)
+                # print("ocr_res ", res)
                 
                 new_image, useful_list = crop_img(res, pil_img, crop_paste_x=50, crop_paste_y=50)
                 cropped_img_name = f"{index}.jpg"

@@ -197,10 +197,6 @@ class ModifiedPaddleOCR(PaddleOCR):
                         # text_img = img[y_min:y_max, x_min:x_max]
                         pil_text_img = Image.fromarray(img_crop)
                         text = self.vietocr_detector.predict(pil_text_img)
-                        # text = self.vietocr_detector.predict(img_crop)
-                        idx = random.randint(0,10000)
-                        pil_text_img.save(os.path.join(r'D:\codePJ\Mely\MeLy-MinerU\demo\demovie3\ocr\modifiedOCR', f"{idx}.png"))
-                        print(f"text {text} res {res[1]}")
                         tmp_res.append([box.tolist(), (text, res[1])])
                 ocr_res.append(tmp_res)
                 # print(f"OCR RES {ocr_res}")
@@ -232,7 +228,7 @@ class ModifiedPaddleOCR(PaddleOCR):
                 ocr_res.append(rec_res)
             if not rec:
                 return cls_res
-            print(f"OCR RESS {ocr_res}")
+            # print(f"OCR RESS {ocr_res}")
             return ocr_res
         
     def __call__(self, img, cls=True, mfd_res=None):
@@ -260,11 +256,11 @@ class ModifiedPaddleOCR(PaddleOCR):
         dt_boxes = sorted_boxes(dt_boxes)
         if mfd_res:
             bef = time.time()
-            print(f"mdf_res {mfd_res}\n")
-            print(f"bef {dt_boxes}\n")
+            # print(f"mdf_res {mfd_res}\n")
+            # print(f"bef {dt_boxes}\n")
             dt_boxes = update_det_boxes(dt_boxes, mfd_res)
             aft = time.time()
-            print(f"aft {dt_boxes}\n")
+            # print(f"aft {dt_boxes}\n")
             logger.debug("split text box by formula, new dt_boxes num : {}, elapsed : {}".format(
                 len(dt_boxes), aft-bef))
 
@@ -285,13 +281,13 @@ class ModifiedPaddleOCR(PaddleOCR):
                 len(img_crop_list), elapse))
         # print(f"temp_box_list {temp_box_list}")
 
-        for text_img in img_crop_list:
-            index = random.randint(0, 10000)
-            pil_text_img = Image.fromarray(text_img)
-            pil_text_img.save(os.path.join(r'D:\codePJ\Mely\MeLy-MinerU\demo\demovie3\paddle_det1', f"{index}.jpg"))
+        # for text_img in img_crop_list:
+        #     index = random.randint(0, 10000)
+        #     pil_text_img = Image.fromarray(text_img)
+        #     pil_text_img.save(os.path.join(r'D:\codePJ\Mely\MeLy-MinerU\demo\demovie3\paddle_det1', f"{index}.jpg"))
         # rec_res, elapse = self.text_recognizer(img_crop_list)
         rec_res, elapse = self.vietocr_recog(img_crop_list)
-        print(f"rec_res {rec_res}")
+        # print(f"rec_res {rec_res}")
         time_dict['rec'] = elapse
         logger.debug("rec_res num  : {}, elapsed : {}".format(
             len(rec_res), elapse))
